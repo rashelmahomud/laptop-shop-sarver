@@ -137,7 +137,7 @@ async function run() {
 
         //====================Single person for admin make code started here===>
 
-        app.put('/user/admin/:email', async (req, res) => {
+        app.put('/user/admin/:email',verifyJWT, async (req, res) => {
             const email = req.params.email;
             const filter = { email: email };
             const updatedDoc = {
