@@ -99,8 +99,8 @@ async function run() {
                 return res.send(order);
 
             }
-            else{
-                return res.status(403).send({message: 'forbidden access'})
+            else {
+                return res.status(403).send({ message: 'forbidden access' })
             }
         });
         //===========Single person for order loaded display code Ends    here=====^
@@ -120,7 +120,6 @@ async function run() {
             const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
             res.send({ result, token });
 
-
         });
 
         //===User Information calection code Ends    here=============^
@@ -128,7 +127,7 @@ async function run() {
 
         //==========All User loded for display Code Started here=========>
 
-        app.get('/user',verifyJWT,async(req,res) => {
+        app.get('/user', verifyJWT, async (req, res) => {
             const users = await userCollection.find().toArray();
             res.send(users);
         })
@@ -136,6 +135,20 @@ async function run() {
         //==========All User loded for display Code Ends    here=========^
 
 
+        //====================Single person for admin make code started here===>
+
+        app.put('/user/admin/:email', async (req, res) => {
+            const email = req.params.email;
+            const filter = { email: email };
+            const updatedDoc = {
+                $set: {role: 'admin'},
+            };
+            const result = await userCollection.updateOne(filter, updatedDoc);
+            res.send( result);
+
+        });
+
+        //====================Single person for admin make code Ends    here===>
 
 
     }
