@@ -128,7 +128,7 @@ async function run() {
 
         //==========All User loded for display Code Started here=========>
 
-        app.get('/user',async(req,res) => {
+        app.get('/user',verifyJWT,async(req,res) => {
             const users = await userCollection.find().toArray();
             res.send(users);
         })
