@@ -44,6 +44,7 @@ async function run() {
     try {
         await client.connect();
         const serviceCollection = client.db('laptop-parts').collection('service');
+        const reviewCollection = client.db('laptop-parts').collection('review');
         const orderCollection = client.db('laptop-parts').collection('orders');
         const userCollection = client.db('laptop-parts').collection('users');
 
@@ -184,6 +185,15 @@ async function run() {
 
         })
         //============Admin for code ==================^
+
+
+
+        //============Load reviews data from backend ======started=====
+        app.get('/review' , async (req,res) =>{
+            const reviews = await reviewCollection.find().toArray();
+            res.send(reviews);
+        })
+        //============Load reviews data from backend ======Ends   =====
 
 
     }
