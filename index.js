@@ -122,8 +122,21 @@ async function run() {
         // product order for code Ends==== here====^
 
 
-          // delete a product in display orders=====>
-          app.delete('/order/:id', async (req, res) => {
+
+        // order payment sent in database============>
+        app.get('/order/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const orders = await orderCollection.findOne(query);
+            res.send(orders);
+
+        })
+        // order payment sent in database============^
+
+
+
+        // delete a product in display orders=====>
+        app.delete('/order/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await orderCollection.deleteOne(query);
@@ -243,7 +256,7 @@ async function run() {
         })
         // customer profile add in database code Ends  here=======>
 
-        app.get('/profile', async(req,res) => {
+        app.get('/profile', async (req, res) => {
             const person = await profilCollection.find().toArray();
             res.send(person);
         })
