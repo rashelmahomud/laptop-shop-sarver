@@ -47,6 +47,7 @@ async function run() {
         const reviewCollection = client.db('laptop-parts').collection('review');
         const orderCollection = client.db('laptop-parts').collection('orders');
         const userCollection = client.db('laptop-parts').collection('users');
+        const profilCollection = client.db('laptop-parts').collection('profiles');
 
 
 
@@ -216,6 +217,24 @@ async function run() {
 
         })
         // customer reviews add order for code Ends======here====^
+
+
+        // customer profile add in database code started here====>
+        app.post('/profile', async (req, res) => {
+            const order = req.body;
+            const result = await profilCollection.insertOne(order);
+            res.send(result);
+
+        })
+        // customer profile add in database code Ends  here=======>
+
+        app.get('/profile', async(req,res) => {
+            const person = await profilCollection.find().toArray();
+            res.send(person);
+        })
+
+
+        // Customer detailes sent from database (display load)===^
 
 
     }
