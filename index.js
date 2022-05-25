@@ -189,11 +189,21 @@ async function run() {
 
 
         //============Load reviews data from backend ======started=====
-        app.get('/review' , async (req,res) =>{
+        app.get('/review', async (req, res) => {
             const reviews = await reviewCollection.find().toArray();
             res.send(reviews);
         })
         //============Load reviews data from backend ======Ends   =====
+
+
+        // customer reviews add in database code started here====>
+        app.post('/review', async (req, res) => {
+            const order = req.body;
+            const result = await reviewCollection.insertOne(order);
+            res.send(result);
+
+        })
+        // customer reviews add order for code Ends======here====^
 
 
     }
