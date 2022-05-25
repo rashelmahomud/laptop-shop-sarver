@@ -75,6 +75,21 @@ async function run() {
         });
 
         //single data id set korar jonno
+
+        // add service product only admin use this system======>
+
+        app.post('/service', async (req, res) => {
+            const service = req.body;
+            const result = await serviceCollection.insertOne(service);
+            res.send(result);
+
+        })
+        // add service product only admin use this system======^
+
+
+
+
+
         app.get('/service/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
