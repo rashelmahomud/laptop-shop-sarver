@@ -105,6 +105,18 @@ async function run() {
         })
         // product order for code Ends==== here====^
 
+
+          // delete a product in display orders=====>
+          app.delete('/order/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await orderCollection.deleteOne(query);
+            res.send(result)
+        });
+        // delete a product in display orders=====^
+
+
+
         //===========Single person for order loaded display code started here=====>
         app.get('/order', verifyJWT, async (req, res) => {
             const userEmail = req.query.userEmail;
