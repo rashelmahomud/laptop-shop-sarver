@@ -5,6 +5,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const { verify } = require('jsonwebtoken');
 const { urlencoded } = require('express');
 require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SICRET_KEY);
+
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -121,6 +123,27 @@ async function run() {
         })
         // product order for code Ends==== here====^
 
+
+
+        //=======================================>
+
+        // app.post('/create-payment-intent', verifyJWT, async (req, res) => {
+        //     const service = req.body;
+        //     const price = service.price;
+        //     const amount = price * 100;
+        //     const paymentIntent = await stripe.paymentIntents.create({
+        //         amount: amount,
+        //         currency: 'usd',
+        //         payment_method_types: ['card']
+        //     });
+        //     res.send({
+        //         clientSecret: paymentIntent.client_secret
+        //     });
+        
+        // })
+
+        //=======================================^
+        
 
 
         // order payment sent in database============>
