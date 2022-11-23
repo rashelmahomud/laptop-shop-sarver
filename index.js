@@ -48,6 +48,7 @@ async function run() {
         const orderCollection = client.db('laptop-parts').collection('orders');
         const userCollection = client.db('laptop-parts').collection('users');
         const profilCollection = client.db('laptop-parts').collection('profiles');
+        const blogsCollection = client.db('laptop-parts').collection('blogs');
 
 
 
@@ -72,6 +73,16 @@ async function run() {
             const cursor = serviceCollection.find(query);
             const services = await cursor.toArray();
             res.send(services);
+        });
+
+        //single data id set korar jonno
+
+        // all service data load kora display te
+        app.get('/blogs', async (req, res) => {
+            const query = {};
+            const cursor = blogsCollection.find(query);
+            const blogs = await cursor.toArray();
+            res.send(blogs);
         });
 
         //single data id set korar jonno
