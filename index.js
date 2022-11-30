@@ -49,6 +49,7 @@ async function run() {
         const userCollection = client.db('laptop-parts').collection('users');
         const profilCollection = client.db('laptop-parts').collection('profiles');
         const blogsCollection = client.db('laptop-parts').collection('blogs');
+        const blogsReviewCollection = client.db('laptop-parts').collection('blogReview');
 
 
 
@@ -98,9 +99,6 @@ async function run() {
         // add service product only admin use this system======^
 
 
-
-
-
         app.get('/service/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -136,28 +134,28 @@ async function run() {
 
         //=======================================>
 
-        app.post('/create-payment-intent', verifyJWT, async (req,res) => {
+        app.post('/create-payment-intent', verifyJWT, async (req, res) => {
             const service = req.body;
             const cost = service.cost;
-            const amount = cost*100;
+            const amount = cost * 100;
             const paymentIntent = await stripe.paymentIntents.create({
-                amount : amount,
+                amount: amount,
                 currency: "usd",
                 payment_method_types: ["card"],
             });
-            res.send({clientSecret: paymentIntent.client_secret})
-            
-            
+            res.send({ clientSecret: paymentIntent.client_secret })
+
+
         });
 
         //=======================================^
-        
+
 
 
         // order payment sent in database============>
         app.get('/order/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)};
+            const query = { _id: ObjectId(id) };
             const orders = await orderCollection.findOne(query);
             res.send(orders);
 
@@ -276,6 +274,25 @@ async function run() {
 
         })
         // customer reviews add order for code Ends======here====^
+
+
+
+        // Blogs reviews add in database code started here====>
+        app.post('/blogReview', async (req, res) => {
+            const blog = req.body;
+            const blogResult = await blogsReviewCollection.insertOne(blog);
+            res.send(blogResult);
+
+        })
+        // Blogs reviews show add order for code Ends======here====^
+
+         //============Load reviews data from backend ======started=====
+         app.get('/blogReview', async (req, res) => {
+            const blogs = await blogsReviewCollection.find().toArray();
+            res.send(blogs);
+        })
+        //============Load reviews show data from backend ======Ends   =====
+
 
 
         // customer profile add in database code started here====>
