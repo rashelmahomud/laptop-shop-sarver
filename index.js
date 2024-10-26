@@ -43,12 +43,12 @@ function verifyJWT(req, res, next) {
 async function run() {
   try {
     await client.connect();
-    const serviceCollection = client.db("laptop-parts").collection("service");
-    const reviewCollection = client.db("laptop-parts").collection("review");
-    const orderCollection = client.db("laptop-parts").collection("orders");
-    const userCollection = client.db("laptop-parts").collection("users");
-    const profilCollection = client.db("laptop-parts").collection("profiles");
-    const blogsCollection = client.db("laptop-parts").collection("blogs");
+    const serviceCollection = client.db("laptop-server").collection("service");
+    const reviewCollection = client.db("laptop-server").collection("review");
+    const orderCollection = client.db("laptop-server").collection("orders");
+    const userCollection = client.db("laptop-server").collection("users");
+    const profilCollection = client.db("laptop-server").collection("profiles");
+    const blogsCollection = client.db("laptop-server").collection("blogs");
     const blogsReviewCollection = client
       .db("laptop-parts")
       .collection("blogReview");
