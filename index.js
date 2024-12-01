@@ -134,6 +134,16 @@ async function run() {
 
     //=======================================^
 
+// load all order
+
+    app.get("/order", async (req, res) => {
+      const query = {};
+      const cursor = orderCollection.find(query);
+      const order = await cursor.toArray();
+      res.send(order);
+    });
+
+
     // order payment sent in database============>
     app.get("/order/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
