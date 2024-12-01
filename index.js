@@ -136,7 +136,7 @@ async function run() {
 
 // load all order
 
-    app.get("/order", async (req, res) => {
+    app.get("/orders", async (req, res) => {
       const query = {};
       const cursor = orderCollection.find(query);
       const order = await cursor.toArray();
