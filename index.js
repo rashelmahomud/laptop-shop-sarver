@@ -49,9 +49,7 @@ async function run() {
     const userCollection = client.db("laptop-server").collection("users");
     const profilCollection = client.db("laptop-server").collection("profiles");
     const blogsCollection = client.db("laptop-server").collection("blogs");
-    const blogsReviewCollection = client
-      .db("laptop-parts")
-      .collection("blogReview");
+    const blogsReviewCollection = client.db("laptop-server").collection("blogreview");
 
     //   //=======VeryFy for Admin Started===========>=============
 
@@ -268,7 +266,7 @@ async function run() {
     //single data id set korar jonno
 
     // Blogs reviews add in database code started here====>
-    app.post("/blogReview", async (req, res) => {
+    app.post("/blogreview", async (req, res) => {
       const blog = req.body;
       const blogResult = await blogsReviewCollection.insertOne(blog);
       res.send(blogResult);
@@ -276,7 +274,7 @@ async function run() {
     // Blogs reviews show add order for code Ends======here====^
 
     //============Load reviews data from backend ======started=====
-    app.get("/blogReview", async (req, res) => {
+    app.get("/blogreview", async (req, res) => {
       const blogs = await blogsReviewCollection.find().toArray();
       res.send(blogs);
     });
